@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.zavakid.commons</groupId>
-  <artifactId>common.all</artifactId>
+  <artifactId>commons.all</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -11,11 +11,15 @@
   <url>http://www.zavakid.com</url>
 
   <modules>
-    <module>common.jetty</module>
+    <module>commons.jetty</module>
+    <module>commons.core</module>
   </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <junit_version>4.11</junit_version>
+    <mockito_version>1.9.5</mockito_version>
+    <dependency.version>1.0</dependency.version>
   </properties>
 
   <dependencyManagement>
@@ -23,14 +27,14 @@
       <dependency>
         <groupId>com.zavakid.dependency</groupId>
         <artifactId>dependency.log</artifactId>
-        <version>${project.version}</version>
+        <version>${dependency.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.zavakid.dependency</groupId>
         <artifactId>dependency.commons</artifactId>
-        <version>${project.version}</version>
+        <version>${dependency.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -38,39 +42,45 @@
       <dependency>
         <groupId>com.zavakid.dependency</groupId>
         <artifactId>dependency.spring</artifactId>
-        <version>1.0</version>
+        <version>${dependency.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.zavakid.dependency</groupId>
         <artifactId>dependency.spring.data</artifactId>
-        <version>${project.version}</version>
+        <version>${dependency.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.zavakid.dependency</groupId>
         <artifactId>dependency.jetty</artifactId>
-        <version>${project.version}</version>
+        <version>${dependency.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.zavakid.dependency</groupId>
         <artifactId>dependency.hibernate</artifactId>
-        <version>${project.version}</version>
+        <version>${dependency.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
 
+      <!-- test dependency start-->
       <dependency>
-        <groupId>com.zavakid.dependency</groupId>
-        <artifactId>dependency.test</artifactId>
-        <version>${project.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit_version}</version>
+        <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>${mockito_version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
