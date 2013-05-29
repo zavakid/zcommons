@@ -5,3 +5,4 @@ settings/
 *.bak
 *.~
 1.txt
+.cache
