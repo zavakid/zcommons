@@ -15,5 +15,11 @@ public class AppTest {
         scala.setHello(5);
         assertEquals(5, scala.getHello());
         scala.sayHello();
+
+        Person person = new Person(null);
+        System.out.println(person.name());
+
+        System.out.println(Accounts.newUniqueNumber());
+        System.out.println(Accounts.newUniqueNumber());
     }
 }

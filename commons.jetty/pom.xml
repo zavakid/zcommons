@@ -6,6 +6,7 @@
     <groupId>com.zavakid.commons</groupId>
     <artifactId>commons.all</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>commons.jetty</artifactId>
   <name>commons.jetty</name>

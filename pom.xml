@@ -14,6 +14,8 @@
     <module>commons.jetty</module>
     <module>commons.core</module>
     <module>commons.test</module>
+    <module>commons.log</module>
+    <module>commons.web</module>
   </modules>
 
   <properties>
@@ -25,6 +27,7 @@
     <operadriver_version>1.3</operadriver_version>
     <scala_version>2.10.0</scala_version>
     <scalatest_version>2.0.M6-SNAP5</scalatest_version>
+    <scala-maven_plugin>3.1.5</scala-maven_plugin>
   </properties>
 
   <dependencyManagement>
@@ -84,6 +87,12 @@
         <scope>test</scope>
       </dependency>
 
+      <dependency>
+        <groupId>com.alibaba.citrus</groupId>
+        <artifactId>citrus-service-requestcontext</artifactId>
+        <version>3.2.0</version>
+      </dependency>
+
       <!-- test dependency start-->
       <dependency>
         <groupId>junit</groupId>
@@ -122,22 +131,32 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.scala-tools</groupId>
-        <artifactId>maven-scala-plugin</artifactId>
-        <version>2.15.0</version>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>${scala-maven_plugin}</version>
         <executions>
           <execution>
+            <id>scala-compile-first</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <displayCmd>true</displayCmd>
+              <scalaVersion>${scala_version}</scalaVersion>
+            </configuration>
             <goals>
+              <goal>add-source</goal>
               <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>scala-test-compile</id>
+            <phase>process-test-resources</phase>
+            <configuration>
+              <displayCmd>true</displayCmd>
+              <scalaVersion>${scala_version}</scalaVersion>
+            </configuration>
+            <goals>
               <goal>testCompile</goal>
             </goals>
-            <configuration>
-              <args>
-                <arg>-make:transitive</arg>
-                <arg>-dependencyfile</arg>
-                <arg>${project.build.directory}/.scala_dependencies</arg>
-              </args>
-            </configuration>
           </execution>
         </executions>
       </plugin>
