@@ -34,6 +34,17 @@
 					<entry key="tmp">
 						<bean class="com.alibaba.citrus.service.requestcontext.session.store.cookie.impl.CookieStoreImpl">
 							<property name="name" value="tmp" />
+							<property name="encoders">
+								<list>
+									<bean class="com.alibaba.citrus.service.requestcontext.session.encoder.impl.SerializationEncoder">
+											<property name="encrypter">
+													<bean class="com.alibaba.citrus.service.requestcontext.session.encrypter.impl.AesEncrypter">
+															<property name="key" value="abcdef0123456789" />
+													</bean>
+											</property>
+									</bean>
+								</list>
+							</property>
 						</bean>
 					</entry>
 				</map>
