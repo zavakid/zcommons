@@ -13,8 +13,6 @@
  */
 package com.zavakid.commons.web.webx;
 
-import static com.alibaba.citrus.service.requestcontext.util.RequestContextUtil.findRequestContext;
-
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -31,7 +29,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.alibaba.citrus.service.requestcontext.RequestContext;
 import com.alibaba.citrus.service.requestcontext.RequestContextChainingService;
-import com.alibaba.citrus.service.requestcontext.lazycommit.LazyCommitRequestContext;
 import com.alibaba.citrus.service.requestcontext.util.RequestContextUtil;
 
 /**
@@ -63,16 +60,8 @@ public class WebxRequestContextFilter extends OncePerRequestFilter {
             filterChain.doFilter(requestContext.getRequest(), requestContext.getResponse());
         } catch (Exception e) {
         } finally {
-            if (isRequestFinished(requestContext)) {
-                return;
-            }
             commitRequest(requestContext);
         }
-    }
-
-    protected boolean isRequestFinished(RequestContext requestContext) {
-        LazyCommitRequestContext lcrc = findRequestContext(requestContext, LazyCommitRequestContext.class);
-        return lcrc != null && lcrc.isRedirected();
     }
 
     /** 提交request。 */
