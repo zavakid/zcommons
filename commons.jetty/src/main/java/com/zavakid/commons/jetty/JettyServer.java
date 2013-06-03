@@ -30,16 +30,16 @@ import com.zavakid.commons.core.lifecycle.Joinable;
  */
 public class JettyServer extends AbstractLifeCycle implements Joinable {
 
-    private static final Logger log                  = LoggerFactory.getLogger(JettyServer.class);
+    protected static final Logger log                  = LoggerFactory.getLogger(JettyServer.class);
 
-    private int                 maxThreads           = 200;
-    private String              threadName           = "jetty-server-thread";
-    private int                 port                 = 8080;
-    private String              contextPath          = "/";
-    private boolean             parentLoaderPriority = true;
-    private String              resourceBase         = JettyServer.class.getResource("/").toString();
+    protected int                 maxThreads           = 200;
+    protected String              threadName           = "jetty-server-thread";
+    protected int                 port                 = 8080;
+    protected String              contextPath          = "/";
+    protected boolean             parentLoaderPriority = true;
+    protected String              resourceBase         = JettyServer.class.getResource("/").toString();
 
-    private Server              server;
+    protected Server              server;
 
     @Override
     protected void doStart() {
