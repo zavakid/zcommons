@@ -11,18 +11,30 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package com.zavakid.commons.test
+package com.zavakid.commons.test.web;
 
 /**
- * @author zavakid 2013-5-29 下午6:09:03
+ * @author zavakid 2013-6-4 下午10:33:49
  * @since 1.0
  */
-class Person(val name: String) {
-  var age: Int = 0
-  age = 0
-  override def toString = "[name=]" + name + ",age=" + age + "]"
-}
+public class CasperJsException extends RuntimeException {
 
-object Person extends scala.App {
-  println("abc".map(_.toInt))
+    private static final long serialVersionUID = -354732672261252769L;
+
+    public CasperJsException(){
+        super();
+    }
+
+    public CasperJsException(String message, Throwable cause){
+        super(message, cause);
+    }
+
+    public CasperJsException(String message){
+        super(message);
+    }
+
+    public CasperJsException(Throwable cause){
+        super(cause);
+    }
+
 }
