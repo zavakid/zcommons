@@ -33,7 +33,7 @@
 
     <dependency>
       <groupId>com.alibaba.citrus</groupId>
-      <artifactId>citrus-service-requestcontext</artifactId>
+      <artifactId>citrus-webx-all</artifactId>
     </dependency>
 
     <dependency>

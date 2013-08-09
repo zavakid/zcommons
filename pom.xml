@@ -96,8 +96,14 @@
 
       <dependency>
         <groupId>com.alibaba.citrus</groupId>
-        <artifactId>citrus-service-requestcontext</artifactId>
+        <artifactId>citrus-webx-all</artifactId>
         <version>3.2.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-asm</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <!-- test dependency start-->
