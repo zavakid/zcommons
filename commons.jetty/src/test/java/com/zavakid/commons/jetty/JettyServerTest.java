@@ -34,62 +34,66 @@ import com.zavakid.commons.jetty.servlet.TestServlet;
  */
 public class JettyServerTest {
 
-    private static ChromeDriverService service;
-    private WebDriver                  driver;
+	// private static ChromeDriverService service;
+	private WebDriver driver;
 
-    @Test
-    public void testJettyServer() throws InterruptedException {
-        final JettyServer httpServer = new JettyServer();
-        httpServer.setContextPath("/");
-        httpServer.setMaxThreads(10);
-        httpServer.setParentLoaderPriority(true);
-        httpServer.setPort(8080);
-        httpServer.setResourceBase(JettyServerTest.class.getResource("/test-web").toString());
-        httpServer.setThreadName("jetty-test-thread");
-        httpServer.start();
-        try {
-            testPage();
-        } finally {
-            httpServer.stop();
-        }
-    }
+	@Test
+	public void testJettyServer() throws InterruptedException {
+		final JettyServer httpServer = new JettyServer();
+		httpServer.setContextPath("/");
+		httpServer.setMaxThreads(10);
+		httpServer.setParentLoaderPriority(true);
+		httpServer.setPort(8080);
+		httpServer.setResourceBase(JettyServerTest.class.getResource(
+				"/test-web").toString());
+		httpServer.setThreadName("jetty-test-thread");
+		httpServer.start();
+		try {
+			testPage();
+		} finally {
+			httpServer.stop();
+		}
+	}
 
-    private void testPage() {
-        // driver = new RemoteWebDriver(service.getUrl(),
-        // DesiredCapabilities.chrome());
-        driver = new FirefoxDriver();
-        driver.get("http://127.0.0.1:8080/test");
-        String content = driver.getPageSource();
-        System.out.println("Page content is: " + content);
-        assertEquals(TestServlet.OUTPUT_TEXT, content);
-        driver.quit();
-    }
+	private void testPage() {
+		// driver = new RemoteWebDriver(service.getUrl(),
+		// DesiredCapabilities.chrome());
+		driver = new FirefoxDriver();
+		driver.get("http://127.0.0.1:8080/test");
+		String content = driver.getPageSource();
+		System.out.println("Page content is: " + content);
+		assertEquals(TestServlet.OUTPUT_TEXT, content);
+		driver.quit();
+	}
 
-    @BeforeClass
-    public static void createAndStartService() throws IOException {
-        // service = new ChromeDriverService.Builder().usingDriverExecutable(new
-        // File(getChromeDriverPath()))
-        // .usingAnyFreePort()
-        // .build();
-        // service.start();
-    }
+	@BeforeClass
+	public static void createAndStartService() throws IOException {
+		// service = new ChromeDriverService.Builder().usingDriverExecutable(new
+		// File(getChromeDriverPath()))
+		// .usingAnyFreePort()
+		// .build();
+		// service.start();
+	}
 
-    @AfterClass
-    public static void createAndStopService() {
-        // service.stop();
-    }
+	@AfterClass
+	public static void createAndStopService() {
+		// service.stop();
+	}
 
-    public static String getChromeDriverPath() {
-        URL url = JettyServerTest.class.getResource("/");
-        File file = new File(url.toString());
-        File rootProjectPath = file.getParentFile().getParentFile().getParentFile();
-        String chromeDriverPath = rootProjectPath.toString() + File.separator + "lib" + File.separator + "chromedriver";
-        if (chromeDriverPath.startsWith("file:")) {
-            chromeDriverPath = chromeDriverPath.substring("file:".length(), chromeDriverPath.length());
-        }
-        if (!chromeDriverPath.startsWith("/")) {
-            chromeDriverPath = "/" + chromeDriverPath;
-        }
-        return chromeDriverPath;
-    }
+	public static String getChromeDriverPath() {
+		URL url = JettyServerTest.class.getResource("/");
+		File file = new File(url.toString());
+		File rootProjectPath = file.getParentFile().getParentFile()
+				.getParentFile();
+		String chromeDriverPath = rootProjectPath.toString() + File.separator
+				+ "lib" + File.separator + "chromedriver";
+		if (chromeDriverPath.startsWith("file:")) {
+			chromeDriverPath = chromeDriverPath.substring("file:".length(),
+					chromeDriverPath.length());
+		}
+		if (!chromeDriverPath.startsWith("/")) {
+			chromeDriverPath = "/" + chromeDriverPath;
+		}
+		return chromeDriverPath;
+	}
 }
