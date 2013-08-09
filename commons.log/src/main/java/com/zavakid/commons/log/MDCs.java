@@ -44,7 +44,8 @@ public abstract class MDCs {
 
     public static class MDCSnapshot {
 
-        private Map map;
+        @SuppressWarnings("rawtypes")
+		private Map map;
 
         private MDCSnapshot(){
             this.snapshot();
