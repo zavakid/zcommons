@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import com.zavakid.commons.core.lifecycle.AbstractLifeCycle;
 import com.zavakid.commons.core.lifecycle.Joinable;
+import com.zavakid.commons.log.Logs;
 
 /**
  * @author zavakid 2013-5-25 上午8:44:50
@@ -82,7 +83,7 @@ public class JettyServer extends AbstractLifeCycle implements Joinable {
 
     @Override
     protected void doAbort(String why, Throwable e) {
-        log.warn(String.format("jettyServer was aborted because: %s", why), e);
+        Logs.warn(log, e, "jettyServer was aborted because: %s", why);
         try {
             this.server.stop();
         } catch (Exception e1) {
