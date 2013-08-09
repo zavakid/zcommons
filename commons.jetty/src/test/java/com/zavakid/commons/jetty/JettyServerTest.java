@@ -52,6 +52,8 @@ public class JettyServerTest {
 			testPage();
 		} finally {
 			httpServer.stop();
+			driver.quit();
+			driver.close();
 		}
 	}
 
@@ -63,7 +65,6 @@ public class JettyServerTest {
 		String content = driver.getPageSource();
 		System.out.println("Page content is: " + content);
 		assertEquals(TestServlet.OUTPUT_TEXT, content);
-		driver.quit();
 	}
 
 	@BeforeClass
