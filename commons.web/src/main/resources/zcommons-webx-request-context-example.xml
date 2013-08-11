@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+	default-autowire="byName">
+	
+	<bean id="webxRequestContext" class="com.alibaba.citrus.service.requestcontext.impl.RequestContextChainingServiceImpl"
+		lazy-init="false">
+		<property name="sort" value="true" />
+		<property name="threadContextInheritable" value="true" />
+		<property name="factories">
+			<list>
+				<ref bean="basicRequestContextFactory" />
+				<ref bean="bufferedRequestContextFactory" />
+				<ref bean="lazyCommitRequestContextFactory" />
+				<ref bean="sessionRequestContextFactory" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="basicRequestContextFactory" class="com.alibaba.citrus.service.requestcontext.basic.impl.BasicRequestContextFactoryImpl" />
+	<bean id="bufferedRequestContextFactory" class="com.alibaba.citrus.service.requestcontext.buffered.impl.BufferedRequestContextFactoryImpl" />
+	<bean id="lazyCommitRequestContextFactory" class="com.alibaba.citrus.service.requestcontext.lazycommit.impl.LazyCommitRequestContextFactoryImpl" />
+	<bean id="sessionRequestContextFactory" class="com.zavakid.commons.web.webx.SessionRequestContextFactoryImpl">
+		<property name="config.id.cookie.domain" value="" />
+		<property name="config.stores.stores">
+				<map>
+					<entry key="tmp">
+						<bean class="com.alibaba.citrus.service.requestcontext.session.store.cookie.impl.CookieStoreImpl">
+							<property name="name" value="tmp" />
+							<property name="encoders">
+								<list>
+									<bean class="com.alibaba.citrus.service.requestcontext.session.encoder.impl.SerializationEncoder">
+											<property name="encrypter">
+													<bean class="com.alibaba.citrus.service.requestcontext.session.encrypter.impl.AesEncrypter">
+															<property name="key" value="abcdef0123456789" />
+													</bean>
+											</property>
+									</bean>
+								</list>
+							</property>
+						</bean>
+					</entry>
+				</map>
+		</property>
+		<property name="config.storeMappings.patterns">
+				<list>
+					<bean class="com.zavakid.commons.web.webx.SessionRequestContextFactoryImpl$AttributePattern" factory-method="getDefaultPattern">
+					 	<constructor-arg value="tmp" />
+					</bean>
+				</list>
+		</property>
+	</bean>
+
+</beans>
