@@ -7,3 +7,4 @@ settings/
 1.txt
 .cache
 .scala_dependencies
+pom.xml.versionsBackup
