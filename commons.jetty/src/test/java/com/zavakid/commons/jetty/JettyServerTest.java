@@ -52,7 +52,6 @@ public class JettyServerTest {
 		} finally {
 			httpServer.stop();
 			driver.quit();
-			driver.close();
 		}
 	}
 
