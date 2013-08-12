@@ -17,10 +17,11 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 
 /**
+ * 执行 casperjs。如果 casperjs 脚本退出时，返回码不为0，就抛出 {@link CasperJsException}
  * @author zavakid 2013-6-4 下午10:06:05
  * @since 1.0
  */
-public class CasperJsExecutor {
+public abstract class CasperJsExecutor {
 
     public static void execCasperJsFile(String casperJsPath, String testFilePath, String... args) {
         StringBuilder sb = new StringBuilder(casperJsPath).append(" ").append(testFilePath);
