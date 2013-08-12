@@ -15,6 +15,7 @@ package com.zavakid.commons.test.casperjs;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.util.StringUtils;
 
 /**
  * 执行 casperjs。如果 casperjs 脚本退出时，返回码不为0，就抛出 {@link CasperJsException}
@@ -22,9 +23,18 @@ import org.apache.commons.exec.DefaultExecutor;
  * @since 1.0
  */
 public abstract class CasperJsExecutor {
+	
+	private static final String CASPERJS_HOME = "CASPERJS_HOME";
 
-    public static void execCasperJsFile(String casperJsPath, String testFilePath, String... args) {
-        StringBuilder sb = new StringBuilder(casperJsPath).append(" ").append(testFilePath);
+	/**
+	 * 执行 casperjs
+	 * @param casperJsPath
+	 * @param subCmd
+	 * @param testFilePath
+	 * @param args
+	 */
+    public static void execCasperJsFile(String casperJsPath, String subCmd, String testFilePath, String... args) {
+        StringBuilder sb = new StringBuilder(casperJsPath).append(" ").append(subCmd).append(" ").append(testFilePath);
         for (String arg : args) {
             sb.append(" ").append(arg);
         }
@@ -38,6 +48,35 @@ public abstract class CasperJsExecutor {
         } catch (Exception e) {
             throw new CasperJsException(e);
         }
+    }
+    
+	
+	/**
+	 * 执行 casperjs test
+	 * @param casperJsPath
+	 * @param testFilePath
+	 * @param args
+	 */
+    public static void execCasperJsFile(String casperJsPath,String testFilePath, String... args) {
+    	execCasperJsFile(casperJsPath , "test", testFilePath, args);
+    }
+    
+    /**
+     * 直接执行 casperj test，casperjs 的执行路径将从：
+     * <ol>
+     * <li>从 system 变量获取 CASPERJS_HOME</li>
+     * <li>如果上一步没有，将从环境变量中获取 CASPERJS_HOME</li>
+     * <li>如果上一步获取不到，将抛出异常 {@link CasperJsException}</li>
+     * </ol>
+     * @param testFilePath
+     * @param args
+     */
+    public static void execCasperJsFile(String testFilePath, String... args){
+    	String casperjsHome = System.getProperty(CASPERJS_HOME, System.getenv(CASPERJS_HOME));
+    	if(casperjsHome == null || casperjsHome.isEmpty()){
+    		throw new CasperJsException(CASPERJS_HOME + " is not sepcify in java System or env");
+    	}
+    	execCasperJsFile(casperjsHome + "/bin/casperjs" , "test", testFilePath, args);
     }
 
 }
