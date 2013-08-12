@@ -10,7 +10,7 @@
 
   <groupId>com.zavakid.commons</groupId>
   <artifactId>commons.all</artifactId>
-  <version>0.1</version>
+  <version>0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>zcommons</name>
@@ -36,7 +36,7 @@
     <url>git@github.com:zavakid/zcommons.git</url>
     <connection>scm:git:git@github.com:zavakid/zcommons.git</connection>
     <developerConnection>scm:git:git@github.com:zavakid/zcommons.git</developerConnection>
-    <tag>commons.all-0.1</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <modules>
