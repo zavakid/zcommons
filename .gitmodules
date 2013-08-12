@@ -1,3 +1,4 @@
 [submodule "doc"]
 	path = doc
 	url = git@github.com:zavakid/zcommons.wiki.git
+  ignore = dirty
