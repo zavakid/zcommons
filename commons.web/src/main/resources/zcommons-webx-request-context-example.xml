@@ -35,6 +35,7 @@
 				<map>
 					<entry key="tmp">
 						<bean class="com.alibaba.citrus.service.requestcontext.session.store.cookie.impl.CookieStoreImpl">
+							<property name="maxAge" value="-1" />
 							<property name="name" value="tmp" />
 							<property name="encoders">
 								<list>
